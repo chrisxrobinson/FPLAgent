@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  fastapi:
+    image: fplagent-fastapi
+    build:
+      context: .
+      dockerfile: Dockerfile.fastapi
+    ports:
+      - "8000:8000"
+  streamlit:
+    image: fplagent-streamlit
+    build:
+      context: .
+      dockerfile: Dockerfile.streamlit
+    ports:
+      - "8501:8501"
