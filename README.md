@@ -16,6 +16,11 @@ Ensure you have Poetry installed. Then run:
 poetry install
 ```
 
+Additionally, install SQLite Browser locally if you plan on managing the database:
+```
+brew install --cask db-browser-for-sqlite
+```
+
 ## Usage
 
 To run the Streamlit app:
@@ -26,6 +31,30 @@ To run the FastAPI app:
 ```
 poetry run uvicorn src.fastapi_app:app --reload --port 8000
 ```
+
+### Database Shell & Commands
+
+Because the SQLite database is stored locally in ./data/fplagent.db, you can manage it directly:
+- Open a shell:
+  ```
+  make db-shell
+  ```
+- Backup the database:
+  ```
+  make db-backup
+  ```
+- Restore from backup:
+  ```
+  make db-restore
+  ```
+- Execute custom queries:
+  ```
+  make db-query QUERY="SELECT * FROM players LIMIT 5;"
+  ```
+- Show database statistics:
+  ```
+  make db-stats
+  ```
 
 ## Testing
 

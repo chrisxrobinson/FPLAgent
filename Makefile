@@ -1,4 +1,4 @@
-.PHONY: build up down fastapi streamlit test
+.PHONY: build up down fastapi streamlit test db-shell db-backup db-restore db-query db-stats
 
 build:
 	# Build all services
@@ -23,3 +23,23 @@ streamlit:
 test:
 	# Run tests
 	poetry run pytest
+
+db-shell:
+	# Open local SQLite shell for the database
+	sqlite3 ./data/fplagent.db
+
+db-backup:
+	# Backup the database locally
+	sqlite3 ./data/fplagent.db ".backup './data/fplagent_backup.db'"
+
+db-restore:
+	# Restore from local backup
+	sqlite3 ./data/fplagent.db ".restore './data/fplagent_backup.db'"
+
+db-query:
+	# Run common queries (example: make db-query QUERY="SELECT * FROM players LIMIT 5;")
+	sqlite3 -header -column ./data/fplagent.db "$(QUERY)"
+
+db-stats:
+	# Show database statistics and table info
+	sqlite3 ./data/fplagent.db ".tables; SELECT COUNT(*) as player_count FROM players; SELECT COUNT(*) as team_count FROM teams;"
