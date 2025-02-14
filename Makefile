@@ -1,4 +1,4 @@
-.PHONY: build up down fastapi streamlit test db-shell db-backup db-restore db-query db-stats
+.PHONY: build up down fastapi streamlit test db-shell db-backup db-restore db-query db-stats docker-clean docker-image-prune
 
 build:
 	# Build all services
@@ -43,3 +43,11 @@ db-query:
 db-stats:
 	# Show database statistics and table info
 	sqlite3 ./data/fplagent.db ".tables; SELECT COUNT(*) as player_count FROM players; SELECT COUNT(*) as team_count FROM teams;"
+
+docker-clean:
+	# Remove unused containers, networks, images and build cache
+	docker system prune -f
+
+docker-image-prune:
+	# Remove dangling images only
+	docker image prune -f
