@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   fastapi:
     image: fplagent-fastapi
@@ -8,6 +6,8 @@ services:
       dockerfile: Dockerfile.fastapi
     ports:
       - "8000:8000"
+    volumes:
+      - ./data:/app/data  # Add this line
   streamlit:
     image: fplagent-streamlit
     build:
