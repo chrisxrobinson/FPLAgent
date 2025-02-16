@@ -1,11 +1,14 @@
 from fastapi import FastAPI, HTTPException
+
 from . import data_acquisition
 
 app = FastAPI()
 
+
 @app.get("/")
 def read_root():
     return {"message": "Welcome to the FPLAgent FastAPI App"}
+
 
 @app.post("/refresh-data")
 async def refresh_data():

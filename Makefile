@@ -1,4 +1,4 @@
-.PHONY: build up down fastapi streamlit test db-shell db-backup db-restore db-query db-stats docker-clean docker-image-prune
+.PHONY: build up down fastapi streamlit test db-shell db-backup db-restore db-query db-stats docker-clean docker-image-prune lint fmt check
 
 build:
 	# Build all services
@@ -51,3 +51,19 @@ docker-clean:
 docker-image-prune:
 	# Remove dangling images only
 	docker image prune -f
+
+lint:
+	# Run all linting checks
+	poetry run flake8 src tests
+	poetry run black --check src tests
+	poetry run isort --check-only src tests
+
+fmt:
+	# Format all code
+	poetry run black src tests
+	poetry run isort src tests
+
+check:
+	# Run all checks (linting and tests)
+	make lint
+	make test
